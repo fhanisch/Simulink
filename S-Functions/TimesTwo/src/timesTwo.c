@@ -9,9 +9,11 @@
 #include "tmwtypes.h"
 #include "simstruc.h"
 
+#undef printf
+
 static void mdlInitializeSizes(SimStruct *S)
 {
-	//printf("ModelName: %s\n", ssGetModelName(S));
+	printf("ModelName: %s\n", ssGetModelName(S));
 	ssSetNumSFcnParams(S, 0);
 	S->sizes.in.numInputPorts = 1; //ssSetNumInputPorts(S, 1);
 	ssSetInputPortWidth(S, 0, 1);
@@ -31,7 +33,7 @@ static void mdlInitializeSampleTimes(SimStruct *S)
 static void mdlOutputs(SimStruct *S, int_T tid)
 {
 	InputRealPtrsType uPtrs = ssGetInputPortRealSignalPtrs(S,0);
-	//printf("u = %f\n", *uPtrs);
+	printf("u = %f\n", *uPtrs);
 	real_T *y = ssGetOutputPortRealSignal(S,0);
 	*y = 2.0 * *(real_T*)uPtrs;
 }
@@ -45,7 +47,7 @@ static void mdlTerminate(SimStruct *S)
 int main(int argc, char *argv[])
 {
 	const char *modelName = "TimesTwo";
-	//printf("S-Function Test\n");
+	printf("S-Function Test\n");
 	SimStruct S;
 	S.modelName = modelName;
 	time_T sampleTime;
@@ -63,7 +65,7 @@ int main(int argc, char *argv[])
 	mdlInitializeSizes(&S);
 	mdlInitializeSampleTimes(&S);
 	mdlOutputs(&S,0);
-	//printf("y = %f\n", y);
+	printf("y = %f\n", y);
 
 	return 0;
 }
